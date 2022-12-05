@@ -5,12 +5,14 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [inputs, setInputs] = React.useState({
+    username: '',
+    password: '',
+  });
   //fonction pour récuperer un token
   const logMeIn = async () => {
     //Verification des champs
-    if (password.length < 8) {
+    if (inputs.password.length < 8) {
       alert('Password must be at least 8 characters long');
       return;
     }
@@ -19,8 +21,8 @@ const Login = ({navigation}) => {
       method: 'post',
       url: 'https://login.hikkary.com/users/login',
       data: {
-        username: username,
-        password: password,
+        username: inputs.username,
+        password: inputs.password,
       },
     })
       .then(async response => {
@@ -39,14 +41,14 @@ const Login = ({navigation}) => {
       <View>
         <TextInputContainer>
           <TextInputStyled
-            value={username}
-            onChangeText={text => setUsername(text)}
+            value={inputs.username}
+            onChangeText={text => setInputs({...inputs, username: text})}
           />
         </TextInputContainer>
         <TextInputContainer>
           <TextInputStyled
-            value={password}
-            onChangeText={text => setPassword(text)}
+            value={inputs.password}
+            onChangeText={text => setInputs({...inputs, password: text})}
             secureTextEntry={true}
           />
         </TextInputContainer>
