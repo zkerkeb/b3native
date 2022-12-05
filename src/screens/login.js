@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -7,6 +7,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = ({navigation}) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('token').then(token => {
+      if (token) {
+        navigation.navigate('Characters');
+      }
+    });
+  });
+
   //fonction pour récuperer un token
   const logMeIn = async () => {
     //Verification des champs
