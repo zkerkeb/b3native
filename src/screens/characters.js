@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import {PUBLIC_API_KEY} from '@env';
+import Avatar from '../components/avatar';
 
 const Characters = () => {
   const [characters, setCharacters] = React.useState([]);
@@ -39,25 +40,16 @@ const Characters = () => {
   const navigation = useNavigation(); // deux manières de faire
 
   const renderItem = ({item}) => {
-    console.log(
-      '🚀 ~ file: characters.js:39 ~ renderItem ~ item',
-      `https://${item.thumbnail.path.split('://')[1]}.${
-        item.thumbnail.extension
-      }`,
-    );
     return (
-      <TouchableOpacity>
-        <Image
-          style={{
-            width: 100,
-            height: 100,
-            backgroundColor: 'red',
-          }}
-          source={{
-            uri: `https://${item.thumbnail.path.split('://')[1]}.${
-              item.thumbnail.extension
-            }`,
-          }}
+      <TouchableOpacity
+        onPress={() => {
+          //On fait passer en params de la route l'id de l'item (props)
+          navigation.navigate('Details', {id: item.id});
+        }}>
+        <Avatar
+          imageSource={`https://${item.thumbnail?.path.split('://')[1]}.${
+            item.thumbnail?.extension
+          }`}
         />
         <Text>{item.name}</Text>
       </TouchableOpacity>
@@ -66,7 +58,13 @@ const Characters = () => {
 
   return (
     <View>
-      <Text>Characters</Text>
+      <Text
+        style={{
+          fontSize: 30,
+          fontFamily: 'Harry P',
+        }}>
+        Characters
+      </Text>
       <FlatList
         data={characters}
         renderItem={renderItem}
