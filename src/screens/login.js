@@ -8,14 +8,6 @@ const Login = ({navigation}) => {
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  useEffect(() => {
-    AsyncStorage.getItem('token').then(token => {
-      if (token) {
-        navigation.navigate('Characters');
-      }
-    });
-  });
-
   //fonction pour récuperer un token
   const logMeIn = async () => {
     //Verification des champs

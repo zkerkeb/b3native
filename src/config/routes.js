@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Login from '../screens/login';
 import Characters from '../screens/characters';
 import Details from '../screens/details';
+import {ActivityIndicator, SafeAreaView} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthStack from './authStack';
+import PublicStack from './publicStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,22 +15,12 @@ const Stack = createNativeStackNavigator();
 const Routes = props => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{title: 'Connexion'}}
-        />
-        <Stack.Screen
-          name="Characters"
-          component={Characters}
-          options={{title: 'Personnages'}}
-        />
-        <Stack.Screen
-          name="Details"
-          component={Details}
-          options={{title: 'Details'}}
-        />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Public" component={PublicStack} />
+        <Stack.Screen name="Auth" component={AuthStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

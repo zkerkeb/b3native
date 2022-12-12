@@ -13,12 +13,11 @@ const Details = ({route}) => {
   console.log(character.series);
   console.log(character.series?.available); // si character.series n'existe pas, sa plante, c'est pour ça qu'on utilise le optional chaining
 
-  console.log(route.params.id);
   useEffect(() => {
     axios({
       method: 'get',
       //On fetch le héro en utilisant le template string (ES6)
-      url: `https://gateway.marvel.com:443/v1/public/characters/${route.params.id}`,
+      url: `https://gateway.marvel.com:443/v1/public/characters/${route.params?.id}`,
       params: {
         ts: 1,
         apikey: PUBLIC_API_KEY,
@@ -33,7 +32,7 @@ const Details = ({route}) => {
       .catch(error => {
         console.log(error);
       });
-  }, [route.params.id]);
+  }, [route.params?.id]);
   return (
     <View>
       <Text>Details</Text>
