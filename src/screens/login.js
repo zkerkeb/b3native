@@ -27,7 +27,7 @@ const Login = ({navigation}) => {
       .then(async response => {
         console.log(response.headers['x-access-token']);
         await AsyncStorage.setItem('token', response.headers['x-access-token']);
-        navigation.navigate('Characters');
+        navigation.navigate('Auth', {screen: 'Characters'});
       })
       .catch(error => {
         console.log(error);

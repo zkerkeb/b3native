@@ -8,13 +8,14 @@ import {ActivityIndicator, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStack from './authStack';
 import PublicStack from './publicStack';
+import {navigationRef} from './rootNavigation';
 
 const Stack = createNativeStackNavigator();
 
 //Création du router
 const Routes = props => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
